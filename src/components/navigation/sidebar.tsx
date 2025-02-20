@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const NavigationSidebar = () => {
   return (
     <>
@@ -25,7 +27,7 @@ const NavigationSidebar = () => {
       </button>
       <aside
         id='sidebar-multi-level-sidebar'
-        className='fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0'
+        className='fixed top-0 left-0 sm:z-0 z-2 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0'
         aria-label='Sidebar'
       >
         <div className='h-full px-3 py-4 overflow-y-auto bg-white'>
@@ -36,8 +38,8 @@ const NavigationSidebar = () => {
               </div>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to={'/'}
                 className='flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 group'
               >
                 <svg
@@ -54,15 +56,15 @@ const NavigationSidebar = () => {
                     d='M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z'
                   />
                 </svg>
-                <span className='flex-1 ms-3 whitespace-nowrap'>Kanban</span>
+                <span className='flex-1 ms-3 whitespace-nowrap'>Dashboard</span>
                 <span className='inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-500 bg-[#cdcdcd4f] rounded-full'>
                   10
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to={'/'}
                 className='flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 group'
               >
                 <svg
@@ -84,12 +86,12 @@ const NavigationSidebar = () => {
                     d='M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z'
                   />
                 </svg>
-                <span className='ms-3'>Dashboard</span>
-              </a>
+                <span className='ms-3'>Coming Soon</span>
+              </Link>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to={'/'}
                 className='flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 group'
               >
                 <svg
@@ -109,11 +111,11 @@ const NavigationSidebar = () => {
                 <span className='flex-1 ms-3 whitespace-nowrap'>
                   Coming Soon
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to={'/'}
                 className='flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 group'
               >
                 <svg
@@ -132,13 +134,13 @@ const NavigationSidebar = () => {
                 </svg>
 
                 <span className='flex-1 ms-3 whitespace-nowrap'>
-                  Coming Soon!
+                  Coming Soon
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to={'/'}
                 className='flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 group'
               >
                 <svg
@@ -162,13 +164,13 @@ const NavigationSidebar = () => {
                 </svg>
 
                 <span className='flex-1 ms-3 whitespace-nowrap'>
-                  Coming Soon!
+                  Coming Soon
                 </span>
-              </a>
+              </Link>
             </li>
             <li className='mt-auto'>
-              <a
-                href='#'
+              <Link
+                to={'/'}
                 className='flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 group'
               >
                 <svg
@@ -187,7 +189,7 @@ const NavigationSidebar = () => {
                 </svg>
 
                 <span className='flex-1 ms-3 whitespace-nowrap'>Logout</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
