@@ -2,7 +2,7 @@ import Button from '@/components/atoms/Button';
 import DialogWrapper from '@/components/atoms/Dialog';
 import DetailCard from '@/components/cards/DetailCard';
 import AddTaskForm from '@/components/form/AddTaskForm';
-import NavigationSidebar from '../components/navigation/Sidebar';
+import Sidebar from '../components/navigation/Sidebar';
 import { useState } from 'react';
 
 function DetailTaskPage() {
@@ -48,7 +48,7 @@ function DetailTaskPage() {
         content={<p>Are you sure want to delete this task?</p>}
       />
 
-      <NavigationSidebar />
+      <Sidebar />
       {/* Content */}
       <div className='p-4 sm:ml-64 min-h-screen'>
         <div id='header-title-button' className='p-4 mt-4 flex justify-between'>

@@ -3,7 +3,7 @@ import DialogWrapper from '@/components/atoms/Dialog';
 import ColumnCard from '@/components/cards/ColumnCard';
 import TaskCard from '@/components/cards/TaskCard';
 import AddTaskForm from '@/components/form/AddTaskForm';
-import NavigationSidebar from '../components/navigation/Sidebar';
+import Sidebar from '../components/navigation/Sidebar';
 import { useState } from 'react';
 
 function DashboardPage() {
@@ -20,7 +20,7 @@ function DashboardPage() {
 
   return (
     <main>
-      <NavigationSidebar />
+      <Sidebar />
       {/* Content */}
       <DialogWrapper
         isOpen={openAddTask}
