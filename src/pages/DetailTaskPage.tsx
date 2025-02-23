@@ -2,7 +2,7 @@ import Button from '@/components/atoms/Button';
 import DialogWrapper from '@/components/atoms/Dialog';
 import DetailCard from '@/components/cards/DetailCard';
 import AddTaskForm from '@/components/form/AddTaskForm';
-import Sidebar from '../components/navigation/Sidebar';
+import Sidebar from '../components/navigation/sidebar';
 import { useState } from 'react';
 
 function DetailTaskPage() {

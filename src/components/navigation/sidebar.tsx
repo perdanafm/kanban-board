@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
-    <>
+    <div>
       <button
         data-drawer-target='sidebar-multi-level-sidebar'
         data-drawer-toggle='sidebar-multi-level-sidebar'
@@ -194,7 +194,7 @@ const Sidebar = () => {
           </ul>
         </div>
       </aside>
-    </>
+    </div>
   );
 };
 

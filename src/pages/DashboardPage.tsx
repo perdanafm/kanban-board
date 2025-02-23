@@ -3,7 +3,7 @@ import DialogWrapper from '@/components/atoms/Dialog';
 import ColumnCard from '@/components/cards/ColumnCard';
 import TaskCard from '@/components/cards/TaskCard';
 import AddTaskForm from '@/components/form/AddTaskForm';
-import Sidebar from '../components/navigation/Sidebar';
+import Sidebar from '../components/navigation/sidebar';
 import { useState } from 'react';
 
 function DashboardPage() {
