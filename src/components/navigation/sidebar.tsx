@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const NavigationSidebar = () => {
+const Sidebar = () => {
   return (
     <>
       <button
@@ -198,4 +198,4 @@ const NavigationSidebar = () => {
   );
 };
 
-export default NavigationSidebar;
+export default Sidebar;
