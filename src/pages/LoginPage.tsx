@@ -2,7 +2,7 @@ import { useGetUsers } from '@/services/hooks';
 import { useForm } from '@tanstack/react-form';
 
 const LoginPage = () => {
-  const { data, refetch, isRefetching } = useGetUsers();
+  const { refetch } = useGetUsers();
   const form = useForm({
     defaultValues: {
       email: '',
@@ -74,7 +74,7 @@ const LoginPage = () => {
                       name={field.name}
                       className='w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500'
                       autoComplete='off'
-                    />{' '}
+                    />
                   </>
                 );
               }}
