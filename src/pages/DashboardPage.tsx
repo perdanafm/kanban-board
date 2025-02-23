@@ -1,5 +1,6 @@
 import Button from '@/components/atoms/Button';
 import DialogWrapper from '@/components/atoms/Dialog';
+import ColumnCard from '@/components/cards/ColumnCard';
 import TaskCard from '@/components/cards/TaskCard';
 import AddTaskForm from '@/components/form/AddTaskForm';
 import NavigationSidebar from '@/components/navigation/Sidebar';
@@ -43,36 +44,29 @@ function DashboardPage() {
             label='Add a task'
           />
         </div>
-        {/* <div className='p-4 border-2 border-dashed rounded-lg dark:border-gray-300 h-full'> */}
         <div className='p-4 h-full'>
           <div className='grid sm:grid-cols-3 grid-cols-1 gap-4 mb-4 text-gray-500'>
-            <div className='relative space-y-6 '>
-              <p className='text-sm font-semibold'>TO DO</p>
+            <ColumnCard title='TO DO'>
               <div className='flex flex-col gap-4'>
                 <TaskCard />
                 <TaskCard />
                 <TaskCard />
                 <TaskCard />
               </div>
-            </div>
-            <div className='relative space-y-6'>
-              <p className='text-sm font-semibold'>DOING</p>
+            </ColumnCard>
+            <ColumnCard title='DOING'>
+              <div className='flex flex-col gap-4'>
+                <TaskCard />
+                <TaskCard />
+              </div>
+            </ColumnCard>
+            <ColumnCard title='DONE'>
               <div className='flex flex-col gap-4'>
                 <TaskCard />
                 <TaskCard />
                 <TaskCard />
-                <TaskCard />
               </div>
-            </div>
-            <div className='relative space-y-6'>
-              <p className='text-sm font-semibold'>DONE</p>
-              <div className='flex flex-col gap-4'>
-                <TaskCard />
-                <TaskCard />
-                <TaskCard />
-                <TaskCard />
-              </div>
-            </div>
+            </ColumnCard>
           </div>
         </div>
       </div>
