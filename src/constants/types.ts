@@ -12,3 +12,11 @@ export type StatusSchemeType = {
   label: string;
   value: string;
 };
+
+export type Users = {
+  createdAt: string;
+  name: string;
+  email: string;
+  password: string;
+  id: string;
+};

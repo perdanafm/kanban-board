@@ -1,8 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import CardContainer from '../atoms/CardContainer';
 import Chips from '../atoms/Chips';
+import { CategoryType } from '@/constants/types';
 
-const TaskCard = () => {
+interface ITaskCard {
+  id: string;
+  title: string;
+  desc: string;
+  type: CategoryType[];
+}
+
+const TaskCard = ({ id, title, desc, type }: ITaskCard) => {
   const navigate = useNavigate();
   const handleToDetail = (id: string) => {
     navigate(id);
@@ -10,17 +18,16 @@ const TaskCard = () => {
   return (
     <CardContainer>
       <h1
-        onClick={() => handleToDetail('detail')}
+        onClick={() => handleToDetail(id)}
         className='overflow-hidden text-clip cursor-pointer hover:underline sm:text-xl text-md font-bold text-gray-900 mb-2'
       >
-        Develop Authentication Module
+        {title}
       </h1>
-      <p className='text-sm text-gray-500 mb-4 line-clamp-2'>
-        Prepare the server environment and database for app development.
-      </p>
+      <p className='text-sm text-gray-500 mb-4 line-clamp-2'>{desc}</p>
       <div className='flex flex-wrap gap-4'>
-        <Chips category='Backend' />
-        <Chips category='Frontend' />
+        {type.map((item) => (
+          <Chips key={item} category={item} />
+        ))}
       </div>
     </CardContainer>
   );

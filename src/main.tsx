@@ -7,19 +7,33 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashboardPage from './pages/DashboardPage';
 import DetailTaskPage from './pages/DetailTaskPage';
 import LoginPage from './pages/LoginPage';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './context/AuthContext';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <DashboardPage />,
+    element: (
+      <AuthProvider>
+        <DashboardPage />
+      </AuthProvider>
+    ),
   },
   {
     path: '/:slug',
-    element: <DetailTaskPage />,
+    element: (
+      <AuthProvider>
+        <DetailTaskPage />
+      </AuthProvider>
+    ),
   },
   {
     path: '/login',
-    element: <LoginPage />,
+    element: (
+      <AuthProvider>
+        <LoginPage />
+      </AuthProvider>
+    ),
   },
 ]);
 
@@ -34,6 +48,7 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
+      <Toaster />
       <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>

@@ -1,8 +1,13 @@
+import { useAuth } from '@/context/AuthContext';
 import { useGetUsers } from '@/services/hooks';
+import { Users } from '@/services/types';
+import { checkLogin } from '@/utils/tools';
 import { useForm } from '@tanstack/react-form';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const { refetch } = useGetUsers();
+  const { login } = useAuth();
   const form = useForm({
     defaultValues: {
       email: '',
@@ -10,20 +15,29 @@ const LoginPage = () => {
     },
     onSubmit: async ({ value }) => {
       try {
-        console.log('Form submitted with values:', value);
-        // Here you would typically make your login API call
-        // For example:
-        // await loginUser(value.email, value.password);
-        await refetch();
-        identifierCheck(value);
+        const { data } = await refetch();
+        identifierCheck(value, data!);
       } catch (error) {
         console.error('Login error:', error);
       }
     },
   });
 
-  const identifierCheck = (value: { email: string; password: string }) => {
-    console.log(value);
+  const identifierCheck = async (
+    value: {
+      email: string;
+      password: string;
+    },
+    dataX: Users[]
+  ) => {
+    if (dataX) {
+      const success = checkLogin(value.email, value.password, dataX);
+      if (success.success === true) {
+        login(success.user!.id.toString());
+      } else {
+        toast.error('Invalid email or password');
+      }
+    }
   };
 
   return (
@@ -42,6 +56,7 @@ const LoginPage = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             form.handleSubmit();
           }}
         >
@@ -51,7 +66,7 @@ const LoginPage = () => {
               name='email'
               validators={{
                 onChange: ({ value }) =>
-                  !value ? 'Email is required' : undefined,
+                  !value ? 'A password is required' : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -62,7 +77,6 @@ const LoginPage = () => {
                 },
               }}
               children={(field) => {
-                // Avoid hasty abstractions. Render props are great!
                 return (
                   <>
                     <label htmlFor={field.name} className='block text-gray-600'>
@@ -72,6 +86,9 @@ const LoginPage = () => {
                       type='text'
                       id={field.name}
                       name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
                       className='w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500'
                       autoComplete='off'
                     />
@@ -80,8 +97,6 @@ const LoginPage = () => {
               }}
             />
           </div>
-
-          {/* Password Input */}
           <div className='mb-4'>
             <form.Field
               name='password'
@@ -98,7 +113,6 @@ const LoginPage = () => {
                 },
               }}
               children={(field) => {
-                // Avoid hasty abstractions. Render props are great!
                 return (
                   <>
                     <label htmlFor={field.name} className='block text-gray-800'>
@@ -108,6 +122,9 @@ const LoginPage = () => {
                       type='password'
                       id={field.name}
                       name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
                       className='w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500'
                       autoComplete='off'
                     />
@@ -125,7 +142,7 @@ const LoginPage = () => {
                 disabled={!canSubmit}
                 className='cursor-pointer bg-sky-600 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full'
               >
-                {isSubmitting ? '...Loading' : 'Login'}
+                {isSubmitting ? 'Loading...' : 'Login'}
               </button>
             )}
           />
