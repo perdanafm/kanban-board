@@ -32,8 +32,8 @@ const LoginPage = () => {
   ) => {
     if (dataX) {
       const success = checkLogin(value.email, value.password, dataX);
-      if (success.success === true) {
-        login(success.user!.id.toString());
+      if (success.user) {
+        login(success.user);
       } else {
         toast.error('Invalid email or password');
       }

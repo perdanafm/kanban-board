@@ -7,10 +7,12 @@ import Sidebar from '../components/navigation/sidebar';
 import { useState } from 'react';
 import { useGetTasks } from '@/services/hooks';
 import Spinner from '@/components/atoms/Spinner';
+import { useAuth } from '@/context/AuthContext';
 
 function DashboardPage() {
   const [openAddTask, setOpenAddTask] = useState(false);
-  const { data, isLoading, isFetching } = useGetTasks('6');
+  const { user } = useAuth();
+  const { data, isLoading, isFetching } = useGetTasks(user.id.toString());
   const _handleCloseAddTask = () => {
     setOpenAddTask(false);
   };
@@ -23,7 +25,7 @@ function DashboardPage() {
 
   return (
     <main>
-      <Sidebar />
+      <Sidebar count={data?.length ?? 0} />
       <DialogWrapper
         isOpen={openAddTask}
         onClose={_handleCloseAddTask}
@@ -38,7 +40,7 @@ function DashboardPage() {
           className='p-4 mt-4 flex flex-wrap gap-4 justify-between'
         >
           <h1 className='font-semibold text-3xl text-gray-900'>
-            Hello name!, Here's your tasks!
+            Hello {user.name}!, Here's your tasks!
           </h1>
           <Button
             type='primary'

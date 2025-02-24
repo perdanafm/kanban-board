@@ -12,7 +12,7 @@ const Button = ({ type, label, onClick }: IButton) => {
   return (
     <button
       onClick={onClick}
-      className={`${style} font-semibold rounded-lg text-sm px-4 py-2 cursor-pointer`}
+      className={`${style} md:w-fit w-full font-semibold rounded-lg text-sm px-4 py-2 cursor-pointer`}
     >
       {label}
     </button>

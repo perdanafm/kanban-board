@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+import { Users } from '@/services/types';
 import {
   createContext,
   useContext,
@@ -10,13 +11,13 @@ import { useNavigate } from 'react-router-dom';
 
 // Define the context type
 interface AuthContextType {
-  idUser: string;
-  login: (value: string) => void;
+  user: Users;
+  login: (user: Users) => void;
   logout: () => void;
 }
 
 export const defaultAuthContext = {
-  idUser: '',
+  user: {} as Users,
   login: () => {},
   logout: () => {},
 };
@@ -26,33 +27,33 @@ const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 // Create the provider component
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [idUser, setIdUser] = useState(() => {
-    return localStorage.getItem('idUser') ?? '';
+  const [user, setUser] = useState(() => {
+    return JSON.parse(localStorage.getItem('user') ?? '{}');
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!idUser) {
+    if (!user.id) {
       navigate('/login');
     }
-  }, [idUser, navigate]);
+  }, [user, navigate]);
 
   // Function to log in
-  const login = (value: string) => {
-    setIdUser(value);
-    localStorage.setItem('idUser', value);
+  const login = (userx: Users) => {
+    setUser(userx);
+    localStorage.setItem('user', JSON.stringify(userx));
     navigate('/');
   };
 
   // Function to log out
   const logout = () => {
-    setIdUser('');
-    localStorage.removeItem('/');
+    setUser('');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
   return (
-    <AuthContext.Provider value={{ idUser, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

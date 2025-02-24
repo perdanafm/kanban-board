@@ -3,6 +3,8 @@ import CardContainer from '../atoms/CardContainer';
 import Chips from '../atoms/Chips';
 import { useParams } from 'react-router-dom';
 import Spinner from '../atoms/Spinner';
+import { formatISODate } from '@/utils/tools';
+import { STATUS } from '@/constants/const';
 
 const DetailCard = () => {
   const { slug } = useParams();
@@ -21,8 +23,8 @@ const DetailCard = () => {
         </p>
         <div className='md:w-1/4 w-4/4'>
           <p className='font-semibold'>Info</p>
-          <p className=''>Created at: {data?.createdAt}</p>
-          <p className=''>Updated at: {data?.updatedAt}</p>
+          <p className=''>Created at: {formatISODate(data?.createdAt ?? '')}</p>
+          <p className=''>Updated at: {formatISODate(data?.updatedAt ?? '')}</p>
         </div>
       </div>
       <div className='flex gap-2 flex-wrap'>
@@ -32,7 +34,7 @@ const DetailCard = () => {
       </div>
       <div id='status'>
         <p className='font-medium'>
-          Status : <span>{data?.status}</span>
+          Status : <span>{STATUS[data!.status].label}</span>
         </p>
       </div>
     </CardContainer>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-
-const Sidebar = () => {
+interface ISidebar {
+  count: number;
+}
+const Sidebar = ({ count }: ISidebar) => {
   return (
     <div>
       <button
@@ -57,9 +59,11 @@ const Sidebar = () => {
                   />
                 </svg>
                 <span className='flex-1 ms-3 whitespace-nowrap'>Dashboard</span>
-                <span className='inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-500 bg-[#cdcdcd4f] rounded-full'>
-                  10
-                </span>
+                {count > 0 && (
+                  <span className='inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-500 bg-[#cdcdcd4f] rounded-full'>
+                    {count}
+                  </span>
+                )}
               </Link>
             </li>
             <li>

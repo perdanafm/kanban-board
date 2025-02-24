@@ -20,3 +20,12 @@ export function getTaskById(tasks: Tasks[], id: string) {
 
 export const capitalize = (str: CategoryType) =>
   str.charAt(0).toUpperCase() + str.slice(1);
+
+export const formatISODate = (isoDate: string): string => {
+  const date = new Date(isoDate);
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+};
