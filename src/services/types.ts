@@ -9,8 +9,8 @@ export type Users = {
 };
 
 export interface Tasks {
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   title: string;
   status: StatusType;
   description: string;

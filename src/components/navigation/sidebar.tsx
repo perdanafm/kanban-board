@@ -1,8 +1,7 @@
+import { useTaskContext } from '@/context/TaskContext';
 import { Link } from 'react-router-dom';
-interface ISidebar {
-  count: number;
-}
-const Sidebar = ({ count }: ISidebar) => {
+const Sidebar = () => {
+  const { count } = useTaskContext();
   return (
     <div>
       <button

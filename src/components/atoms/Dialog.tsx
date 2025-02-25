@@ -7,6 +7,8 @@ import {
 } from '@headlessui/react';
 import Button from './Button';
 import { ReactElement } from 'react';
+import { ReactFormExtendedApi } from '@tanstack/react-form';
+import SpinnerButton from './SpinnerButton';
 
 interface IDialogWrapper {
   isOpen: boolean;
@@ -15,6 +17,19 @@ interface IDialogWrapper {
   content: ReactElement;
   onSubmit: () => void;
   labelButton: string;
+  form: ReactFormExtendedApi<
+    {
+      taskName: string;
+      description: string;
+      category: {
+        design: boolean;
+        frontend: boolean;
+        backend: boolean;
+      };
+      status: string;
+    },
+    undefined
+  >;
 }
 
 const DialogWrapper = ({
@@ -22,6 +37,7 @@ const DialogWrapper = ({
   onClose,
   title,
   content,
+  form,
   onSubmit,
   labelButton,
 }: IDialogWrapper) => {
@@ -42,10 +58,21 @@ const DialogWrapper = ({
           <Description className='p-4 mb-0 border-b border-gray-200'>
             {content}
           </Description>
-          <div className='flex gap-4 p-4 justify-end'>
-            <Button type='secondary' onClick={onClose} label='Cancel' />
-            <Button type='primary' onClick={onSubmit} label={labelButton} />
-          </div>
+          <form.Subscribe
+            selector={(state) => [state.canSubmit, state.isSubmitting]}
+            children={([canSubmit, isSubmitting]) => (
+              <div className='flex gap-4 p-4 justify-end'>
+                <Button type='secondary' onClick={onClose} label='Cancel' />
+                <Button
+                  disabled={!canSubmit}
+                  purpose='submit'
+                  type='primary'
+                  onClick={onSubmit}
+                  label={isSubmitting ? <SpinnerButton /> : labelButton}
+                />
+              </div>
+            )}
+          />
         </DialogPanel>
       </div>
     </Dialog>

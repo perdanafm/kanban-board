@@ -1,20 +1,11 @@
-import { useGetTaskDetail } from '@/services/hooks';
 import CardContainer from '../atoms/CardContainer';
 import Chips from '../atoms/Chips';
-import { useParams } from 'react-router-dom';
-import Spinner from '../atoms/Spinner';
 import { formatISODate } from '@/utils/tools';
 import { STATUS } from '@/constants/const';
+import { Tasks } from '@/services/types';
 
-const DetailCard = () => {
-  const { slug } = useParams();
-  const { data, isLoading, isFetching } = useGetTaskDetail(
-    slug?.toString() ?? ''
-  );
-
-  return isFetching || isLoading ? (
-    <Spinner />
-  ) : (
+const DetailCard = ({ data }: { data: Tasks | undefined }) => {
+  return (
     <CardContainer className='flex flex-col gap-4'>
       <p className='text-3xl text-gray-900 font-bold'>{data?.title}</p>
       <div className='flex flex-row space-y-2 flex-wrap w-full'>

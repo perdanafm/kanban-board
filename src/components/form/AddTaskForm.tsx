@@ -1,22 +1,22 @@
 import { STATUS } from '@/constants/const';
-import { useForm } from '@tanstack/react-form';
+import { ReactFormExtendedApi } from '@tanstack/react-form';
 
-const AddTaskForm = () => {
-  const form = useForm({
-    defaultValues: {
-      taskName: '',
-      description: '',
+interface IAddTaskForm {
+  form: ReactFormExtendedApi<
+    {
+      taskName: string;
+      description: string;
       category: {
-        design: false,
-        frontend: false,
-        backend: false,
-      },
-      status: 'todo',
+        design: boolean;
+        frontend: boolean;
+        backend: boolean;
+      };
+      status: string;
     },
-    onSubmit: async ({ value }) => {
-      console.log(value);
-    },
-  });
+    undefined
+  >;
+}
+const AddTaskForm = ({ form }: IAddTaskForm) => {
   return (
     <form>
       <form.Field
@@ -43,6 +43,9 @@ const AddTaskForm = () => {
                   'border-red-500'
                 } focus:outline-none`}
                 id={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
                 type='text'
                 placeholder='Please input task name...'
               />
@@ -65,6 +68,9 @@ const AddTaskForm = () => {
                   'border-red-500'
                 } focus:outline-none`}
                 id={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
                 placeholder='Please input Description'
               />
             </div>
@@ -79,6 +85,9 @@ const AddTaskForm = () => {
               <input
                 type='checkbox'
                 name={field.name}
+                checked={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.checked)}
                 id={field.name}
                 className='h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500'
               />
@@ -101,6 +110,9 @@ const AddTaskForm = () => {
                 type='checkbox'
                 name={field.name}
                 id={field.name}
+                checked={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.checked)}
                 className='h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500'
               />
               <label
@@ -122,6 +134,9 @@ const AddTaskForm = () => {
                 type='checkbox'
                 name={field.name}
                 id={field.name}
+                checked={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.checked)}
                 className='h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500'
               />
               <label
@@ -146,6 +161,8 @@ const AddTaskForm = () => {
               <select
                 name={field.name}
                 id={field.name}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
                 className='border text-gray-900 text-sm rounded-lg block w-full p-2.5'
               >
                 {Object.keys(STATUS).map((item: string) => {

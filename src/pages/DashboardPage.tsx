@@ -5,34 +5,69 @@ import TaskCard from '@/components/cards/TaskCard';
 import AddTaskForm from '@/components/form/AddTaskForm';
 import Sidebar from '../components/navigation/sidebar';
 import { useState } from 'react';
-import { useGetTasks } from '@/services/hooks';
+import { useAddTask, useGetTasks } from '@/services/hooks';
 import Spinner from '@/components/atoms/Spinner';
 import { useAuth } from '@/context/AuthContext';
+import { useForm } from '@tanstack/react-form';
 
 function DashboardPage() {
   const [openAddTask, setOpenAddTask] = useState(false);
   const { user } = useAuth();
   const { data, isLoading, isFetching } = useGetTasks(user.id.toString());
+
   const _handleCloseAddTask = () => {
     setOpenAddTask(false);
   };
   const _handleOpenAddTask = () => {
     setOpenAddTask(true);
   };
+
+  const addTask = useAddTask(_handleCloseAddTask);
+
+  const form = useForm({
+    defaultValues: {
+      taskName: '',
+      description: '',
+      category: {
+        design: false,
+        frontend: false,
+        backend: false,
+      },
+      status: 'todo',
+    },
+    onSubmit: async ({ value }) => {
+      const payload = {
+        title: value.taskName,
+        userId: user.id,
+        type: Object.entries(value.category)
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          .filter(([_, val]) => val)
+          .map(([key]) => key),
+        ...value,
+      };
+      delete (payload as { category?: unknown }).category;
+      delete (payload as { taskName?: string }).taskName;
+
+      addTask.mutate(payload);
+      form.reset();
+    },
+  });
+
   const _handleSubmitTask = () => {
-    setOpenAddTask(true);
+    form.handleSubmit();
   };
 
   return (
     <main>
-      <Sidebar count={data?.length ?? 0} />
+      <Sidebar />
       <DialogWrapper
         isOpen={openAddTask}
         onClose={_handleCloseAddTask}
         onSubmit={_handleSubmitTask}
+        form={form}
         labelButton='Submit'
         title='Add a Task'
-        content={<AddTaskForm />}
+        content={<AddTaskForm form={form} />}
       />
       <div className='p-4 sm:ml-64 min-h-screen'>
         <div

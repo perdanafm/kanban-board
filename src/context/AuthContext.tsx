@@ -8,8 +8,8 @@ import {
   useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TaskProvider } from './TaskContext';
 
-// Define the context type
 interface AuthContextType {
   user: Users;
   login: (user: Users) => void;
@@ -54,12 +54,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
+      <TaskProvider>{children}</TaskProvider>
     </AuthContext.Provider>
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }
